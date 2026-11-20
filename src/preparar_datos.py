@@ -135,7 +135,8 @@ vectores = modelo_emb.encode(textos, normalize_embeddings=True, batch_size=16, s
 print("Forma de la matriz:", vectores.shape)   # (número de chunks, 1024)
 
 
-cliente = chromadb.PersistentClient(path="./chroma_rag")
+# cliente = chromadb.PersistentClient(path="./chroma_rag")
+cliente = chromadb.PersistentClient(path=str(CHROMA_DIR))
 
 if "apuntes_rag" in [c.name for c in cliente.list_collections()]:
     cliente.delete_collection("apuntes_rag")
