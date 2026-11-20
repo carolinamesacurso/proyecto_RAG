@@ -1,8 +1,6 @@
 #Hacer chunking recursivo de la documentacion. Debes elegir los parametros más adecuados con respecto al estilo de tus documentos.
 
 import os
-from dotenv import load_dotenv
-from langchain_google_genai import ChatGoogleGenerativeAI
 import logging
 from pathlib import Path
 from typing import List
@@ -14,21 +12,19 @@ from sentence_transformers import SentenceTransformer
 import chromadb
 
 logger = logging.getLogger(__name__)
-BASE_URL =os.getenv("GOOGLE_GEMINI_BASE_URL")
-MODELO = "gemini-3.5-flash-lite"
+
 #DOCS_DIR = Path.cwd() /docs
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+# __file__: identifica el archivo Python que se está ejecutando.
+# .parent: sube de preparar_datos.py a src.
+# .parent otra vez: sube de src a proyecto_RAG.
+# A partir de ahí localizamos docs y chroma_rag.
 DOCS_DIR = BASE_DIR / "docs"
 CHROMA_DIR = BASE_DIR / "chroma_rag"
 
 SUPPORTED_EXTS = {".txt", ".md", ".pdf", ".docx"}
 
-load_dotenv()
-
-API_KEY = os.getenv("GEMINI_API_KEY")
-llm = ChatGoogleGenerativeAI(model=MODELO, api_key=API_KEY, base_url=BASE_URL, temperature=0)
 
 
 def _meta(path: Path, **extra) -> dict:
