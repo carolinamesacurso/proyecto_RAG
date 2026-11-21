@@ -7,14 +7,13 @@ import chromadb
 from pathlib import Path
 from langgraph.graph import StateGraph, START, END
 
-BASE_URL =os.getenv("GOOGLE_GEMINI_BASE_URL")
 MODELO = "gemini-3.5-flash-lite"
 
 load_dotenv()
-
+# BASE_URL =os.getenv("GOOGLE_GEMINI_BASE_URL")
 API_KEY = os.getenv("GEMINI_API_KEY")
 # base_url=BASE_URL, -> al estar en clase
-llm = ChatGoogleGenerativeAI(model=MODELO, api_key=API_KEY, temperature=0)
+llm = ChatGoogleGenerativeAI(model=MODELO, google_api_key=API_KEY, temperature=0)
 modelo_emb = SentenceTransformer("BAAI/bge-m3") 
 BASE_DIR = Path(__file__).resolve().parent.parent
 CHROMA_DIR = BASE_DIR / "chroma_rag"
