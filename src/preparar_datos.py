@@ -141,7 +141,7 @@ def chunkenizar(docs_dir: Path = DOCS_DIR, chunk_size: int = 300, chunk_overlap:
     return chunks
 
 
-chunks = chunkenizar(DOCS_DIR, chunk_size=100, chunk_overlap=10) #define cuántos caracteres o tokens se repiten entre el final de un fragmento (chunk) y el inicio del siguiente
+chunks = chunkenizar(DOCS_DIR, chunk_size=60, chunk_overlap=20) #define cuántos caracteres o tokens se repiten entre el final de un fragmento (chunk) y el inicio del siguiente
 
 #Preparamos chunks para poder transformarlos en vectores , unicamente trabajando con su contenido
 textos = [c.page_content for c in chunks]
