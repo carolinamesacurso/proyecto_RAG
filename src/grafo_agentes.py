@@ -11,6 +11,8 @@ from langgraph.graph import StateGraph, START, END
 #generación -> proporciona estos a un llm para que construya una respuesta basada en ellos
 #Le proporcionamos a gemini información específica de lso documentos para la respuesta , no solo se basa en su entrenamiento.
 
+# Antes de probar el grafo de agentes , se necesita ejecutar preparar_datos.py con el chunk_size y el solapamiento que necesite.
+
 #Confuguración del modelo de lenguaje y variables 
 #El modelo tieen que ser el mismo ya que deben estar representados con el mismo espacio semántico (bge-m3)
 MODELO = "gemini-3.5-flash-lite"
@@ -28,7 +30,7 @@ cliente = chromadb.PersistentClient(path=str(CHROMA_DIR))
 
 coleccion = cliente.get_collection(name="apuntes_rag")
 
-#Definir estado del grafo -> etsructura de datos que permite mover información entre los diferentes nodos
+#Definir estado del grafo -> estructura de datos que permite mover información entre los diferentes nodos
 class Estado(TypedDict):
     pregunta: str
     documentos: list[dict]   # los chunks que encuentra la búsqueda
@@ -52,8 +54,8 @@ def recuperar(estado: Estado) -> dict:
 
     return {"documentos": encontrados}
 
-#Prompt del sistema -> evita que el modelo respoda utilizanod conocimientos externos a la documentación
-#Se le indica cuando reconocer infromación insuficiente 
+#Prompt del sistema -> evita que el modelo responda utilizando conocimientos externos a la documentación
+#Se le indica cuando reconocer información insuficiente 
 INSTRUCCIONES = """Eres un asistente que responde preguntas usando ÚNICAMENTE los documentos proporcionados.
 - Si la respuesta no está en los documentos, di: "No tengo esa información en los documentos."
 - Indica entre corchetes el id del documento que usas, tal como aparece, por ejemplo [apuntes:p3:c12].

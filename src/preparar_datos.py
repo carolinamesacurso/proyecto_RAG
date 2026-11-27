@@ -123,7 +123,7 @@ def chunkenizar(docs_dir: Path = DOCS_DIR, chunk_size: int = 300, chunk_overlap:
     #Configuración del splitter
     #RecursiveCharacterTextSplitter -> divide texto respetando separadores
     #Primero intenta dividirlo por ciertos separadores , si ve que son fragmentos grandes , utiliza unos más pequeños
-    #add_start_index -> se aañden a los metadatos la posición de inicio de cada chunk
+    #add_start_index -> se añaden a los metadatos la posición de inicio de cada chunk
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=chunk_size,
         chunk_overlap=chunk_overlap,
